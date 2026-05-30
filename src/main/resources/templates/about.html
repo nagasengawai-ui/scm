@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <div th:replace="base :: Layout(~{::section})"></div>
+
+    <section>
+        <div class="container">
+            <h1>Home Page</h1>
+            <form th:action="@{/about}" method="post">
+                <input type="text" name="username" placeholder="Enter your name" />
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

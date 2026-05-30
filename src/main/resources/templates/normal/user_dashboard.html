@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: Layout(~{::section})">
+
+
+    <div th:replace="base :: Layout(~{::section})"></div>
+<body>
+
+    <section>
+    <div class="card">
+    <div class="card-body">
+     <div class="text-center">
+    <img class="my_pic"
+     style="height:200px; width:200px;"
+     th:src="@{/image/{img}(img=${user.imageUrl})}"
+     alt="profile photo"
+     onerror="this.src='/image/contact.png'"/>
+     </div>
+     <div class="text-center mt-3">
+     <h1>start your Adding Contacts</h1>
+     
+     <a th:href="@{/user/add-contact}" class="btn btn-primary mt-5 btn-block text-uppercase">Add New Contact</a>
+  <h3 class="my-3">Donate Us</h3>
+
+<!-- <input id="payment_field" type="number" class="form-control my-2"
+       placeholder="Enter Amount" min="1">
+
+<div class="container text-center mt-4">
+    <button type="button"
+            onclick="paymentStart()"
+            class="btn btn-success btn-block">
+        CheckOut
+    </button> -->
+    
+        <input id="payment_field" type="number" class="form-control my-2"
+       placeholder="Enter Amount" min="1">
+
+<button id="rzp-button1">Pay with Razorpay</button>
+</div>
+
+     
+     </div>
+    </div>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+$("#rzp-button1").click(function(e) {
+    e.preventDefault();
+    let amount = $("#payment_field").val();
+
+    if(!amount || amount <= 0){
+        alert("Please enter a valid amount!");
+        return;
+    }
+
+    $.ajax({
+        url: '/user/create-order',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ amount: amount }),
+        success: function(order) {
+            var options = {
+                "key": "rzp_test_S0xDK5WMV5khED",
+                "amount": order.amount, // in paise, backend should multiply by 100
+                "currency": "INR",
+                "name": "Smart Contact Manager",
+                "description": "Donation",
+                "order_id": order.id,
+                "handler": function(response){
+                    alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+                    console.log(response);
+                },
+                "prefill": {
+                    "name": "${user.name}",
+                    "email": "${user.email}",
+                    "contact": "${user.phone}"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
+            };
+            var rzp = new Razorpay(options);
+            rzp.open();
+        },
+        error: function(err){
+            console.error(err);
+            alert("Something went wrong! Check console.");
+        }
+    });
+});
+
+
+
+//  for updateding order
+
+const updatePaymentOnServer = (payment_id, order_id, status) => {
+    $.ajax({
+        url: "/user/update-order",
+        data: JSON.stringify({ payment_id: payment_id, order_id: order_id, status: status }),
+        contentType: "application/json",
+        type: "POST",
+        dataType: "json",
+        success: function(response) {
+            console.log("Payment updated successfully", response);
+        },
+        error: function(error) {
+            console.error("Error updating payment", error);
+        }
+    });
+};
+
+</script>
+    
+    </section>
+
+</body>
+
+</html>

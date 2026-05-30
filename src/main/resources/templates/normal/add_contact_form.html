@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Contact</title>
+</head>
+
+<!-- This will replace the full page with base layout and inject <section> below -->
+<body th:replace="normal/base :: Layout(~{::section})">
+
+<section>
+    <div class="card mr-3">
+        <h1 class="text-center">Add Contact</h1>
+        <div class="container-fluid mt-1">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+
+                    <form th:action="@{/user/process-contact}"
+                          method="post"
+                          th:object="${contact}"
+                          enctype="multipart/form-data"
+                          class="mt-2">
+
+                        <!-- First Name -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-plus"></i>
+                                </div>
+                            </div>
+                            <input required type="text"  th:field="*{name}" class="form-control" placeholder="Enter name here" />
+                        </div>
+
+                        <!-- Nickname -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-user-alt"></i>
+                                </div>
+                            </div>
+                            <input required type="text" th:field="*{secondName}" class="form-control" placeholder="Enter nickname here" />
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                            </div>
+<input required type="tel"
+       th:field="*{phone}"
+       class="form-control"
+       pattern="[0-9]{10,13}"
+       title="Enter 10 to 13 digit phone number"
+       placeholder="Enter phone number here" />
+                        </div>
+
+                        <!-- Email -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">@</div>
+                            </div>
+                            <input required type="email" th:field="*{email}" class="form-control" placeholder="Enter email here" />
+                        </div>
+
+                        <!-- Work -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fa fa-briefcase"></i>
+                                </div>
+                            </div>
+                            <input  required type="text" th:field="*{work}" class="form-control" placeholder="Enter work here" />
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group mb-3">
+                            <textarea th:field="*{description}" class="form-control" rows="5" placeholder="Contact description"></textarea>
+                        </div>
+
+                        <!-- File Upload -->
+                        <div class="form-group mb-3">
+                            <label for="profileImage">Profile Image</label>
+                            <input type="file" name="profileImage" class="form-control-file" />
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Save Contact</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

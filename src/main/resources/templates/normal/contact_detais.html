@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="normal/base :: Layout(~{::section})">
+      
+      <head>
+      <title>Contact details</title>
+      </head>
+
+<body>
+<section class="container" >
+
+<h1 class="text-center">Contact Details </h1>
+
+<div class="card mr-3 ml-3">
+<div class="card-body">
+<div class="container text-center">
+<img class="my_pic"
+     style="height:200px; width:200px;"
+     th:src="@{/image/{img}(img=${contact.image})}"
+     alt="profile photo"
+     onerror="this.src='/image/contact.png'"/>
+     <h2 th:text="${contact.name}+' '+${contact.secondName}">  </h2>
+     
+     
+     
+    <table class="table">
+    <thead>
+    <tr>
+    <th scope="col">#ID</th>
+    <th scope="col">User<span th:text="${contact.cId}"></span></th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    <tr>
+    <th scope="row">Email</th>
+    <td><span th:text="${contact.email}"></span></td>
+    </tr>
+    
+      <tr>
+    <th scope="row">Phone</th>
+    <td><span th:text="${contact.phone}"></span></td>
+    </tr>
+    
+     
+  <tr>
+  <th scope="row">Description</th>
+  <td><span th:text="${contact.description}"></span></td>
+  </tr>
+  
+     <td>
+           
+    
+    </tbody>
+     
+
+     
+     </table>
+     <a th:href="@{'/user/update-contact/' + ${contact.cId}}"
+               class="btn btn-primary btn-sm">
+                Update
+            </a>
+
+            <a th:href="@{'/user/delete-contact/' + ${contact.cId}}"
+               class="btn btn-danger btn-sm"
+               onclick="return confirm('Are you sure you want to delete this contact?')">
+                Delete
+            </a>
+        </td>
+     
+</div>
+
+</div>
+
+</div>
+
+</section>
+</body>
+</html>

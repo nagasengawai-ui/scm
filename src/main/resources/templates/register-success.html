@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: Layout(~{::section})">
+
+<title></title>
+<body>
+<body>
+    <div th:replace="base :: Layout(~{::section})"></div>
+    <section>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <h2 class="text-success mb-3">Registration Successful!</h2>
+                            <p class="lead">Thank you for registering, <span th:text="${user.name}">User</span>!</p>
+                            <p>You can now <a th:href="@{/login}">login</a> to your account.</p>
+                            <a th:href="@{/}" class="btn btn-primary mt-3">Go to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

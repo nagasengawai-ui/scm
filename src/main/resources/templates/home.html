@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base :: Layout(~{::section})">
+
+<section class="banner d-flex justify-content-center align-items-center text-center">
+    
+    <div>
+        <h1 class="font-weight-bold">Smart Contact Manager</h1>
+
+        <p class="mt-3">
+            Start collecting your contacts in a smarter way.
+            We provide an efficient and easy way of handling contacts.
+        </p>
+
+        <a th:href="@{/login}" class="btn btn-primary btn-lg text-white mt-2">
+            Get Started
+        </a>
+    </div>
+
+</section>
+
+</html>
